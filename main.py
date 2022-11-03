@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt, colors
 
 board_size=1
 
-modul=2
+modul=3
 
 
 array=np.zeros((board_size,board_size),dtype=int)
@@ -62,14 +62,22 @@ array[int(board_size/2-init_w/2):int(board_size/2-init_w/2)+init_w,int(board_siz
 #kernel=[[1,1,1],
 #        [1,1,1],
 #        [1,1,1]]
-kernel=[[0,0,0,1,0,0,0],
-        [0,0,1,1,1,0,0],
-        [0,1,1,1,1,1,0],
-        [1,1,1,1,1,1,1],
-        [0,1,1,1,1,1,0],
-        [0,0,1,1,1,0,0],
-        [0,0,0,1,0,0,0],
 
+kernel=[[0,0,1,0,0],
+        [0,1,1,1,0],
+        [1,1,0,1,1],
+        [0,1,1,1,0],
+        [0,0,1,0,0]]
+
+
+
+'''kernel=[[0,1,1,0,1,1,0],
+        [1,1,1,0,1,1,1],
+        [1,1,1,0,1,1,1],
+        [0,0,0,0,0,0,0],
+        [1,1,1,0,1,1,1],
+        [1,1,1,0,1,1,1],
+        [0,1,1,0,1,1,0],
         ]#'''
 '''kernel=imageio.imread_v2("kernels/Kernel_cross9x9_4.png")/255'''
 
@@ -88,7 +96,7 @@ cmap = colors.ListedColormap(['black',"white"])
 
 #plt.ion()
 
-for i in range(128):
+for i in range(400):
 
     #plt.clf()
 
