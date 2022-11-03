@@ -1,9 +1,6 @@
-import numpy
 import numpy as np
 import scipy.signal
 import imageio
-from scipy import signal
-
 from matplotlib import pyplot as plt, colors
 
 board_size=1
@@ -47,7 +44,7 @@ array[int(board_size/2-init_w/2):int(board_size/2-init_w/2)+init_w,int(board_siz
         [0,0,1,1,1,1,0],
         [0,0,1,0,1,0,0],
         [0,0,0,0,0,0,0],
-       ]'''
+       ]#'''
 
 
 '''kernel=[[0,0,0,0,1,0,0,0,0],
@@ -60,17 +57,20 @@ array[int(board_size/2-init_w/2):int(board_size/2-init_w/2)+init_w,int(board_siz
         [0,0,0,0,1,0,0,0,0],
         [0,0,0,0,1,0,0,0,0]
 
-        ]'''
+        ]#'''
 
-kernel=[[1,0,0,1,0,0,1],
-        [0,0,0,1,0,0,0],
-        [0,0,0,1,0,0,0],
+#kernel=[[1,1,1],
+#        [1,1,1],
+#        [1,1,1]]
+kernel=[[0,0,0,1,0,0,0],
+        [0,0,1,1,1,0,0],
+        [0,1,1,1,1,1,0],
         [1,1,1,1,1,1,1],
+        [0,1,1,1,1,1,0],
+        [0,0,1,1,1,0,0],
         [0,0,0,1,0,0,0],
-        [0,0,0,1,0,0,0],
-        [1,0,0,1,0,0,1],
 
-        ]
+        ]#'''
 '''kernel=imageio.imread_v2("kernels/Kernel_cross9x9_4.png")/255'''
 
 
