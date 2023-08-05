@@ -10,7 +10,7 @@ import kernel_collection
 
 modul = 2
 # n_steps =0b1001001001001
-n_steps = 103 * 32 + 27  # 41+13*13*29
+n_steps =38*32+13 # 41+13*13*29
 kernel = np.array(kernel_collection.kernel)
 
 datatype = np.uint8
@@ -47,7 +47,6 @@ def make_sparse_base_fast(kernel, num):
     return base
 
 
-sparse_base = make_sparse_base_fast(sparse_kernel, 1 + int(math.log(n_steps, modul)))
 
 
 def sparse_step(state, sparse_kernel):
@@ -55,8 +54,8 @@ def sparse_step(state, sparse_kernel):
     new_state = np.zeros(new_shape, dtype=datatype)
 
     state_shape = state.shape
-    for k in sparse_kernel.keys():
-        new_state[k[0]:k[0] + state_shape[0], k[1]:k[1] + state_shape[1]] += state
+    for k,v in sparse_kernel.items():
+        new_state[k[0]:k[0] + state_shape[0], k[1]:k[1] + state_shape[1]] += state*v
     new_state %= modul
     return new_state
 
@@ -69,20 +68,23 @@ c_fac = np.uint8(255 / (modul - 1))
 print("\"performing\" %d iterations" % n_steps)
 
 time_start = time.time()
+
+sparse_base = make_sparse_base_fast(sparse_kernel, 1 + int(math.log(n_steps, modul)))
+
 i = 1
 num = 0
 while n_steps > 0:
     r = n_steps % modul
-    print(num, r)
+    #print(num,r)
 
     for i in range(r):
-        print("    ", state.shape, sparse_base[num].shape)
+        #print("    ", state.shape, sparse_base[num].shape)
         state = sparse_step(state, sparse_base[num])
 
     num += 1
     n_steps = int(n_steps / modul)
 
-    # imageio.imwrite("./intermediate_results/" + str(num) + ".png", state * c_fac)
+    imageio.imwrite("./intermediate_results/" + str(num) + ".png", state * c_fac)
     # plt.imshow(state,cmap="gray")
     # plt.show()
 
@@ -93,7 +95,7 @@ print("saving, final size:", state.shape)
 time_start = time.time()
 imageio.imwrite("./results_sparse_conv/" + str(name) + ".png", state * c_fac)
 time_end = time.time()
-print("seved in %f seconds" % (time_end - time_start))
+print("saved in %f seconds" % (time_end - time_start))
 
 plt.imshow(state)
 plt.show()

@@ -1,4 +1,5 @@
 import math
+import time
 
 import numpy as np
 import scipy.signal
@@ -7,7 +8,7 @@ from matplotlib import pyplot as plt, colors
 
 import kernel_collection
 
-modul=12
+modul=6
 
 init=np.ones((1,1))
 
@@ -38,7 +39,7 @@ def createBaseN(kernel, iters):
                 base.append(kernel_new)
         return base
 
-n=0b111100111
+n=6
 
 #n=(119<<5)+55
 
@@ -53,12 +54,18 @@ n=0b111100111
 
 print(n)
 name=str(n)
-base=createBaseN(kernel,1+int(math.log(n,modul)))
+
+time_start = time.time()
+
+#base=createBaseN(kernel,1+int(math.log(n,modul)))
+base=createBase2(kernel,1+int(math.log2(n)))
 print("base length: ",len(base))
+
 #for b in base:
 #        plt.imshow(b,cmap="gray")
 #        plt.show()
 
+'''
 i=1
 state=init.copy()
 num=0
@@ -74,9 +81,9 @@ while n>0:
         #plt.show()
         num+=1
         n=int(n/modul)
-
-
 '''
+
+
 i=1
 num=0
 state=init.copy()
@@ -86,7 +93,9 @@ while i<=n:
                 state=step(state,base[num])
         i=i<<1
         num+=1
-'''
+
+time_end = time.time()
+print("done in %f seconds" % (time_end - time_start))
 
 print(state.shape)
 
@@ -98,5 +107,5 @@ color_list=["black","white"]
 #color_list.extend(colors.CSS4_COLORS)
 cmap = colors.ListedColormap(color_list)
 
-plt.imshow(state,cmap=cmap)
+plt.imshow(state)
 plt.show()

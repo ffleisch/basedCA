@@ -1,0 +1,11 @@
+181 iterations
+
+original:	8.474500 seconds
+skip_iters	0.258853 seconds
+sparse_conv	0.015622 seconds //I am running on windows and the smallest increment of the time library is about 16 ms, so this is measurement is not very reliable
+
+3181 iterations
+
+original	no clue, too long
+skip_iters	95.283293 seconds
+sparse_conv 	2.083381 seconds

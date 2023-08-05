@@ -24,13 +24,13 @@ def createBaseN(kernel,modul, iters):
 
 
 all_bases=[]
-for i in range(2,8):
-    base=createBaseN(kernel,i,2)
+for i in range(2,10):
+    base=createBaseN(kernel,i,4)
     all_bases.append(base)
-    #for j,b in enumerate(base):
-    #    if(j==0):
-    #        continue
-    #    imageio.imwrite("./base_tests/mod%d_pow%d.png"%(i,j),b)
+    for j,b in enumerate(base):
+        if(j==0):
+            continue
+        imageio.imwrite("./base_tests/mod%d_pow%d.png"%(i,j+1),b)
 
 res=step(all_bases[1][1],all_bases[1][1],6)
 

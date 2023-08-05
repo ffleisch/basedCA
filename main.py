@@ -1,38 +1,24 @@
+import time
+
 import numpy as np
 import scipy.signal
 import imageio
-from matplotlib import pyplot as plt, colors
+from matplotlib import pyplot as plt
 
 import kernel_collection
 
 board_size=1
 
-modul=2
+modul=2 # modul to be applied after each step
 
+state=np.ones((1, 1)) #inital state
 
-
-state=np.ones((1, 1))
-#state[3:-3, 3:-3]=0
-#print(state)
-
-kernel=kernel_collection.kernel
-
-#plt.imshow(kernel)
-#plt.show()
+kernel=kernel_collection.kernel #kernel for convolution
 
 print(modul,kernel)
 
-
-#cmap = colors.ListedColormap(['black',colors.CSS4_COLORS["tomato"],colors.CSS4_COLORS["palegreen"],colors.CSS4_COLORS["slateblue"]])
-cmap = colors.ListedColormap(['black',"white"])
-
-#color_list=["black"]
-#color_list.extend(colors.CSS4_COLORS)
-#cmap = colors.ListedColormap(color_list)
-
-#plt.ion()
-
-for i in range(256):
+time_start = time.time()
+for i in range(512):
 
     counts=np.round(scipy.signal.fftconvolve(state, kernel))
     state= counts % modul
@@ -41,13 +27,12 @@ for i in range(256):
     imageio.imwrite("./results/" + str(i+1) +".png", state)
 
     #plt.imshow(state,cmap=cmap,interpolation="none")
-    #plt.pause(0.01)
-    #plt.draw()
     #plt.show()
+
+time_end = time.time()
+print("done in %f seconds" % (time_end - time_start))
 
 imageio.imwrite("./results/final.bmp", state)
 
-plt.ioff()
-plt.clf()
-plt.imshow(state, cmap=cmap, interpolation="none")
+plt.imshow(state, cmap="gray", interpolation="none")
 plt.show()
